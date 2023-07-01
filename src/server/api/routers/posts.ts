@@ -37,6 +37,7 @@ export const postsRouter = createTRPCRouter({
       }
     }
     );
+
   }),
 
   create: privateProcedure.input(
@@ -47,9 +48,7 @@ export const postsRouter = createTRPCRouter({
       }
     ))
     .mutation( async ({ ctx, input }) =>{
-      console.log("HEYYYYYYYYYYYYY")
       const {title, content, userId, skillTag} = input; // fetch data from client
-      console.log("context is ",ctx.userId)
       const result = await ctx.prisma.post.create( // save the data in db
         {data:{
           title:title,

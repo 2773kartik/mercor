@@ -4,7 +4,7 @@ import { api } from "~/utils/api";
 import { useUser } from "@clerk/nextjs";
 import { SignInButton, SignOutButton } from "@clerk/nextjs";
 import Navbar from "~/components/navbar";
-import Landing from "../components/landing";
+import Landing from "~/components/landing";
 import Footer from "~/components/footer";
 import Post from "../components/Post";
 import CreatePost from "../components/CreatePost";
@@ -47,7 +47,6 @@ export default function Home() {
   //   )
   // }
   console.log( data )
-
 
   return (
     <>
