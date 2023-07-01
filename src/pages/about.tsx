@@ -1,12 +1,9 @@
 import Head from "next/head";
-import Link from "next/link";
-import { api } from "~/utils/api";
 import Navbar from "~/components/navbar";
-import Landing from "../components/landing";
 import Footer from "~/components/footer";
+import AboutContent from "~/components/aboutcontent";
 
 export default function Home() {
-  const {data, isLoading} = api.posts.getAll.useQuery();
   return (
     <>
       <Head>
@@ -17,7 +14,7 @@ export default function Home() {
       <main className="flex justify-center h-screen">
         <div className="w-full h-full border-x border-slate-400 md:max-w-2xl bg-gray-500 rounded-md bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-40 border border-gray-100">
           <Navbar/>
-          <Landing/>
+          <AboutContent/>
           <Footer/>
       </div>
       </main>
