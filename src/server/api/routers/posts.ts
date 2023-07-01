@@ -49,23 +49,22 @@ export const postsRouter = createTRPCRouter({
     .mutation( async ({ ctx, input }) =>{
       console.log("HEYYYYYYYYYYYYY")
       const {title, content, userId, skillTag} = input; // fetch data from client
-      console.log("context is ",ctx)
-      // const User = await ctx.findUserById(userId); // find the user by id
-      // console.log("User is ", User)
-      return await ctx.prisma.post.create( // save the data in db
+      console.log("context is ",ctx.userId)
+      const result = await ctx.prisma.post.create( // save the data in db
         {data:{
           title:title,
           user:{
             // find the user by userId
               connect: {
-                userId: userId
+                userId: ctx?.userId
               } 
           },
           content:content, 
-          id: ctx.userId?.id, // current session id as the user id
-          userId: userId,
+          id: ctx.userId, // current session id as the user id
           skillTag: skillTag,
-        }})
+        }});
+        
+        return result;
     }),
     }
 

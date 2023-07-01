@@ -1,10 +1,32 @@
-import { FormEvent, useState } from "react"
+import { ChangeEvent, FormEvent, useState } from "react"
 import { api } from "~/utils/api"
+import { createEditor } from 'slate'
+// Import the Slate components and React plugin.
+import { Slate, Editable, withReact } from 'slate-react'
 
+import { BaseEditor, Descendant } from 'slate'
+import { ReactEditor } from 'slate-react'
 
+type CustomElement = { type: 'paragraph'; children: CustomText[] }
+type CustomText = { text: string }
 
+declare module 'slate' {
+  interface CustomTypes {
+    Editor: BaseEditor & ReactEditor
+    Element: CustomElement
+    Text: CustomText
+  }
+}
+
+const initialValue = [
+    {
+      type: 'paragraph',
+      children: [{ text: 'A dummy Text that will go here' }],
+    },
+  ]
 
 export default function CreatePost({clerkUser}){
+    const [editor] = useState(() => withReact(createEditor()))
 
     const [postTitle, setPostTitle] = useState<string>('')
     const [postContent, setPostContent] = useState<string>('')
@@ -42,9 +64,11 @@ export default function CreatePost({clerkUser}){
     return (
         <form onSubmit={handleCreatePost}>
             <div className="flex flex-col">
-                <input onChange={(e:FormEvent)=>setPostTitle(e.target.value)} type="text" name="postTitle" id="postTitle" placeholder="Title" className="p-2 m-2 border-2 shadow-md rounded outline-none cursor-text"/>
-                <textarea onChange={(e:FormEvent)=>setPostContent(e.target.value)} name="postContent" id="postContent" cols={30} rows={10} placeholder="Create a post" className="shadow-md rounded p-2 m-2 resize-none outline-none"></textarea>
-                
+                <input onChange={(e:ChangeEvent<HTMLInputElement>)=>setPostTitle(e.target.value)} type="text" name="postTitle" id="postTitle" placeholder="Title" className="p-2 text-black m-2 border-2 shadow-md rounded outline-none cursor-text"/>
+                <textarea onChange={(e:ChangeEvent<HTMLTextAreaElement>)=>setPostContent(e.target.value)} name="postContent" id="postContent" cols={30} rows={10} placeholder="Create a post" className="shadow-md text-black rounded p-2 m-2 resize-none outline-none"></textarea>
+                <Slate editor={editor} initialValue={initialValue}>
+                    <Editable />
+                </Slate>
                 <button className="shadow-md bg-orange-400 w-1/2 mx-auto rounded m-2 p-2">Publish</button>
 
             </div>
