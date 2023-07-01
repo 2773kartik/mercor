@@ -12,11 +12,15 @@ generator client {
 }
 
 model Post {
-    id      String @id @default(cuid())
+  
+    id String @id @default(cuid())
     createdAt DateTime @default(now())
-
+    title String @db.VarChar(255)
+    likeCount Int @default(0)
+    dislikeCount Int @default(0)
     content String @db.VarChar(255)
-    authorId String
+    authorId String @db.VarChar(255)
+    skillTag String @db.VarChar(255)
 
     @@index([authorId])
 }

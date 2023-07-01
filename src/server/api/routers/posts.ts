@@ -6,3 +6,4 @@ export const postsRouter = createTRPCRouter({
     return ctx.prisma.post.findMany();
   }),
 });
+ 
