@@ -3,13 +3,14 @@ import Link from "next/link";
 import { api } from "~/utils/api";
 import { useUser } from "@clerk/nextjs";
 import { SignInButton, SignOutButton } from "@clerk/nextjs";
+import Post from "./components/Post";
+import CreatePost from "./components/CreatePost";
 
 export default function Home() {
   const user = useUser();
-  console.log(user)
   const {data} = api.posts.getAll.useQuery();
   console.log( data )
-  // if( !data ) return <div>Something went wrong!</div>
+
 
   return (
     <>
@@ -30,9 +31,11 @@ export default function Home() {
         </div>
         <div className="flex flex-col">
           {data?.map((post) => (
-            <div key={post.id} className="p-8 border-b border-slate-400">{post.content}</div>
+            <Post User={user} post={post}/>
+            // <div key={post.id} className="p-8 border-b border-slate-400">{post.content}</div>
           ))} 
         </div>
+        <CreatePost />
         </div>
       </main>
     </>
