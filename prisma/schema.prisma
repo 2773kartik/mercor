@@ -11,12 +11,40 @@ generator client {
   provider = "prisma-client-js"
 }
 
-model Post {
-    id      String @id @default(cuid())
-    createdAt DateTime @default(now())
 
-    content String @db.VarChar(255)
-    authorId String
-
-    @@index([authorId])
+model User {
+  id          String   @id @default(cuid())
+  userId     String   @unique @db.VarChar(255)
+  createdAt   DateTime  @default(now())
+  rating      Int       @default(0)
+  karma       Int       @default(0)
+  skillTag     Json
+  posts       Post[]
+  comments Comment[]
 }
+
+model Comment {
+  id          String     @id @default(cuid())
+  userId      String
+  postId      String
+  body        String
+  user        User       @relation(fields: [userId], references: [userId])
+  post        Post       @relation(fields: [postId], references: [id])
+  createdAt   DateTime   @default(now())
+  @@index([userId])
+  @@index([postId])
+}
+
+model Post {
+  id            String     @id @default(cuid())
+  userId        String 
+  user          User       @relation(fields: [userId], references: [userId])
+  createdAt     DateTime   @default(now())
+  title         String     @db.VarChar(255)
+  likeCount     Int        @default(0)
+  content       String     @db.VarChar(255)
+  skillTag      String     @db.VarChar(255)
+  comments      Comment[]
+  @@index([userId])
+}
+
