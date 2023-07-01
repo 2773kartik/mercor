@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-    @apply bg-white text-slate-100;
+    @apply bg-slate-800 bg-hero-pattern text-slate-100;
   
     overscroll-behavior: none;
     scroll-behavior: smooth;

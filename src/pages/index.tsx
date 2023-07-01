@@ -3,6 +3,9 @@ import Link from "next/link";
 import { api } from "~/utils/api";
 import { useUser } from "@clerk/nextjs";
 import { SignInButton, SignOutButton } from "@clerk/nextjs";
+import Navbar from "~/components/navbar";
+import Landing from "../components/landing";
+import Footer from "~/components/footer";
 import Post from "./components/Post";
 import CreatePost from "./components/CreatePost";
 
@@ -20,6 +23,8 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="flex justify-center h-screen">
+        <Navbar />
+        <Landing />
         <div className="w-full h-full border-x border-slate-400 md:max-w-2xl">
         <div className="border-b border-slate-400 p-4 flex">
           {!user.isSignedIn && 
@@ -37,6 +42,7 @@ export default function Home() {
         </div>
         <CreatePost />
         </div>
+        <Footer/>
       </main>
     </>
   );
