@@ -13,8 +13,8 @@ generator client {
 
 
 model User {
-  id          String    @id @default(cuid())
-  user_id     String    @db.VarChar(255)
+  id          String   @id @default(cuid())
+  userId     String   @unique @db.VarChar(255)
   createdAt   DateTime  @default(now())
   rating      Int       @default(0)
   karma       Int       @default(0)
@@ -28,7 +28,7 @@ model Comment {
   userId      String
   postId      String
   body        String
-  user        User       @relation(fields: [userId], references: [id])
+  user        User       @relation(fields: [userId], references: [userId])
   post        Post       @relation(fields: [postId], references: [id])
   createdAt   DateTime   @default(now())
   @@index([userId])
@@ -38,12 +38,13 @@ model Comment {
 model Post {
   id            String     @id @default(cuid())
   userId        String 
-  user          User       @relation(fields: [userId], references: [id])
+  user          User       @relation(fields: [userId], references: [userId])
   createdAt     DateTime   @default(now())
   title         String     @db.VarChar(255)
   likeCount     Int        @default(0)
   content       String     @db.VarChar(255)
   skillTag      String     @db.VarChar(255)
   comments      Comment[]
+  @@index([userId])
 }
 

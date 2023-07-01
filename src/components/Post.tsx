@@ -1,21 +1,26 @@
+import dayjs from "dayjs";
+import { RouterOutputs } from "~/utils/api"
+import relativeTime from "dayjs/plugin/relativeTime";
+import Image from "next/image";
+dayjs.extend(relativeTime)
 
+type PostWithUser = RouterOutputs["posts"]["getAll"][number]
 
-export default function Post({ User, post }){
-    
+export default function Post(props: PostWithUser){
+    const { author, post } = props;
+
     function handleLike(){
 
     }
 
-    console.log(User)
-    console.log("Comments",post)
     return (
         <div className="flex bg-white shadow-lg rounded-lg mx-4 md:mx-auto my-56 max-w-md md:max-w-2xl ">{/*horizantil margin is just for display*/}
         <div className="flex items-start px-4 py-6">
-          <img className="w-12 h-12 rounded-full object-cover mr-4 shadow" src={User?.user?.profileImageUrl} alt="avatar" />
+          <Image width="48" height="48" className="w-12 h-12 rounded-full object-cover mr-4 shadow" src={author?.profileImageUrl} alt="avatar" />
           <div className="">
             <div className="flex items-center justify-between">
-              <h2 className="text-lg font-semibold text-gray-900 -mt-1">{User?.user?.fullName} </h2>
-              <small className="text-sm text-gray-700">22h ago</small>
+              <h2 className="text-lg font-semibold text-gray-900 -mt-1">{author?.fullName} </h2>
+              <small className="text-sm text-gray-700">{dayjs(post.createdAt).fromNow()}</small>
             </div>
             <p className="mt-3 text-gray-700 text-sm">
               {post?.content}
