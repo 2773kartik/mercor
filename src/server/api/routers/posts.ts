@@ -16,18 +16,15 @@ export const postsRouter = createTRPCRouter({
     limit: z.number().optional(),
     cursor: z.object( {
       id:z.string(), 
-      createdAt:z.date().optional(),
     }).optional(),
-    // pageNumber: z.number(),
-    // postsPerPage: z.number(),
   }))
   .query( async ({ ctx, input }) =>{
     const {limit=50, cursor} = input; // fetch data from client
 
     const posts = await ctx.prisma.post.findMany({
       take: limit+1, 
-      cursor: cursor ? {createdAt_id: cursor} : undefined,
-      orderBy: [{createdAt:'desc'}, {id:'desc'}],
+      cursor: cursor ? {id: cursor} : undefined,
+      orderBy: [{id:'desc'}],
       select:{
         id:true,
         content:true,
@@ -97,7 +94,7 @@ export const postsRouter = createTRPCRouter({
           content:content, 
           skillTag: {
             connect: {
-              id:skillTag
+              name:skillTag
             }
           },
         }});
