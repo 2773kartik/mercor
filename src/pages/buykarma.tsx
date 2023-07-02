@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useUser } from "@clerk/nextjs";
+import { api } from "~/utils/api"
 import Head from "next/head";
 import Navbar from "~/components/navbar";
 import Footer from "~/components/footer";
@@ -41,6 +42,11 @@ interface CartItem {
 
 export default function BuyKarma() {
   const user = useUser(); // clerk user
+  const addKarma = api.users.addKarma.useMutation({
+    onSuccess: () => {
+        toast.success("SkillCoins Added Succesfully!");
+    },
+  });
   const [cart, setCart] = useState<CartItem[]>([]);
 
   const handleAddToCart = (tier: Tier) => {
@@ -62,8 +68,14 @@ export default function BuyKarma() {
   };
 
   const handleBuyCart = () => {
-    // Implement your logic to process the cart items
-    toast.success('Cart items purchased successfully!');
+    let totalPrice = 0;
+    let totalQuantity = 0;
+    cart.forEach((item) => {
+        totalPrice += item.tier.price * item.quantity;
+        totalQuantity += item.tier.quantity * item.quantity;
+    });
+    if (!user.user?.id) return null;
+    addKarma.mutate({ userId: user.user.id, karmaToAdd: totalQuantity }); 
     setCart([]);
   };
 
