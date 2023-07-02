@@ -84,16 +84,7 @@ export default function Dashboard(){
 
     }
 
-    // const {data} = api.profile.getAll.useQuery(myuser.user?.id);
-    // console.log(data)
-
-    // const FetchDetails = api.profile.create();
-    // console.log(FetchDetails.mutate({
-    //     userId: myuser.user?.id,
-    // }));
-
     const details = api.profile.getData.useQuery();
-    // console.log(details.data)
 
     const totalLikes = api.profile.getTotalLikes.useQuery();
     console.log(totalLikes)
