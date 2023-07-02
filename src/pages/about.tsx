@@ -12,8 +12,8 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar/>
-      <main className="flex justify-center h-screen">
-        <div className="w-full h-full border-x border-slate-400 md:max-w-2xl bg-gray-500 rounded-md bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-40 border border-gray-100">
+      <main className="flex justify-center h-full">
+        <div className="w-full h-full border-x text-black shadow-lg bg-white md:max-w-2xl rounded-sm">
           <AboutContent/>
       </div>
       </main>

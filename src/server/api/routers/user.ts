@@ -31,9 +31,14 @@ export const userRouter = createTRPCRouter({
     )    
     .mutation(async ({ ctx, input }) => {
       const { id, skillTag } = input;
-      const user = await ctx.prisma.user.findUnique({
+      const user = await ctx.prisma.user.update({
         where: {
           id,
+        },
+        data: {
+          skillTag: {
+            connect: skillTag.map((tag) => ({ id: tag })),
+          },
         },
       });
     

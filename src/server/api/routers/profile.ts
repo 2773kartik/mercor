@@ -11,6 +11,20 @@ export const profileRouter = createTRPCRouter({
         try {const user = await ctx.prisma.user.findUnique({
             where:{
                 userId: ctx?.userId ? ctx?.userId : undefined
+            },
+            select:{
+                id:true,
+                userId:true,
+                skillTag:{
+                    where:{
+                        approved:true,
+                    },
+                    select:{
+                        name:true,
+                    },
+                },
+                karma:true,
+                rating:true,
             }
             });
         return user;}

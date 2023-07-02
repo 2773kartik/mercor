@@ -7,7 +7,7 @@ import '@fontsource/roboto/700.css'
 
 
 import { Center, Grid, AbsoluteCenter, ChakraBaseProvider, extendBaseTheme, GridItem } from '@chakra-ui/react'
-import { toast } from "react-toastify";
+import { toast } from "react-toastify"; 
 
 
 import {
@@ -45,6 +45,7 @@ const theme = extendBaseTheme({
 export default function Dashboard(){
     const myuser = useUser();
 
+    // details of the user include karma, rating, skills
     const details = api.profile.getData.useQuery();
 
     const totalLikes = api.profile.getTotalLikes.useQuery();
@@ -113,7 +114,7 @@ export default function Dashboard(){
             </Flex>
 
             <form onSubmit={handleSkillAdd}>
-            <div className="w-4/5 mx-auto  flex flex-col">
+            <div className="w-4/5 mx-auto flex flex-col">
                 
                 <select
                     className="p-2 m-2 text-black border-2 shadow-md rounded outline-none cursor-pointer"

@@ -12,17 +12,39 @@ const filterUserForClient = (user:any) =>{
 }
 
 export const postsRouter = createTRPCRouter({
-  getAll: publicProcedure.query( async ({ ctx }) =>{
+  getAll: publicProcedure.input(z.object({
+    limit: z.number().optional(),
+    cursor: z.object( {
+      id:z.string(), 
+      createdAt:z.date().optional(),
+    }).optional(),
+    // pageNumber: z.number(),
+    // postsPerPage: z.number(),
+  }))
+  .query( async ({ ctx, input }) =>{
+    const {limit=50, cursor} = input; // fetch data from client
+
     const posts = await ctx.prisma.post.findMany({
-      take:100,
+      take: limit+1, 
+      cursor: cursor ? {createdAt_id: cursor} : undefined,
+      orderBy: [{createdAt:'desc'}, {id:'desc'}],
+      select:{
+        id:true,
+        content:true,
+        title:true,
+        createdAt:true,
+        likeCount:true,
+        userId:true,
+        skillTag:true,
+      }
     });
 
     const users = (await clerkClient.users.getUserList({
       userId: posts.map( (post) => post.userId),
-      limit:100
+      limit:limit
     })).map(filterUserForClient);
 
-    return posts.map( (post) => {
+    const newPosts = posts.map( (post) => {
       const Author =  users.find( (user) => user.userId === post.userId);  // find using the userId from the post and the user list
       if(!Author){
         throw new TRPCError({
@@ -36,6 +58,21 @@ export const postsRouter = createTRPCRouter({
       }
     }
     );
+
+    let nextCursor:typeof cursor | undefined;
+    if(newPosts.length > limit){
+      const lastPost = newPosts.pop();
+      if(lastPost != null){
+        nextCursor = {
+          id: lastPost?.post.id,
+          createdAt: lastPost?.post.createdAt
+        }
+      }
+    }
+
+    const postsToSend = [...newPosts];
+    return {postsToSend, nextCursor};
+
 
   }),
 
