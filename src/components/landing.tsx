@@ -23,10 +23,10 @@ export default function Landing() {
 
     return (
 
-        <div className="h-full w-9/12">
+        <div className="h-full w-11/12 lg:w-9/12">
           {user ? 
             (
-              <div className="flex my-2 rounded-sm bg-white justify-around items-center">
+              <div className="flex my-2 w-full md:w-full lg:w-full mx-auto rounded-sm bg-white justify-around items-center">
                 <Link href={'/profile'}>
                   <Image src={user.user?.profileImageUrl as string} alt="SkillShow Logo" width={50} height={50} className="rounded-full m-2"/>
                 </Link>

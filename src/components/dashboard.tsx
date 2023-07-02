@@ -113,7 +113,7 @@ export default function Dashboard(){
             </Flex>
 
             <form onSubmit={handleSkillAdd}>
-            <div className="w-4/5 mx-auto  flex flex-col">
+            <div className="w-4/5 mx-auto flex flex-col">
                 
                 <select
                     className="p-2 m-2 text-black border-2 shadow-md rounded outline-none cursor-pointer"

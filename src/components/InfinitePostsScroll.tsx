@@ -35,6 +35,7 @@ export function InfinitePostsScroll({data, isLoading, hasMore, isError, fetchNew
         dataLength={posts?.length}  
         loader={<h4>Loading...</h4>}
         next={fetchNewPosts}
+        className="overflow-y-scroll lg:border-4"
         >
             {posts?.map(({post, author}) => (
                 <Post key={post.id} author={author} post={post}/>
