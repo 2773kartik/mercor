@@ -50,10 +50,10 @@ model Post {
 }
 
 model Skill {
-  id            String     @id @default(cuid())
-  name          String     @unique @db.VarChar(255)
-  approved      Boolean    @default(false)
-  posts         Post[]
-  user          User[]
-  @@index([name])
-
+id            String     @id @default(cuid())
+name          String     @unique @db.VarChar(255)
+approved      Boolean    @default(false)
+posts         Post[]
+user          User[]
+@@index([name])
+}

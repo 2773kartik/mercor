@@ -1,6 +1,6 @@
 import { ChangeEvent, FormEvent, useState } from "react"
 import { api } from "~/utils/api"
-import { useUser } from "@clerk/nextjs;
+import { useUser } from "@clerk/nextjs";
 import RichTextEditor from "./RichTextEditor";
 import { useRouter } from "next/router";
 import Select from "react-select";
@@ -35,33 +35,28 @@ export default function CreatePost(){
     });
 
     // function to handle the creation of a new post
-    async function handleCreatePost(e:FormEvent){
+    async function handleCreatePost(e:FormEvent){ 
         e.preventDefault()
         // check for empty string from user in title or content
         if(postTitle===null || postTitle==='' || postTitle===undefined){
-            return;
-          }
-          if(postContent===null || postContent==='' || postContent===undefined){
-            return;
-          }
-
             toast.warning("Give a title first!");
             return;
         }
+
         if(postContent===null || postContent==='' || postContent===undefined){
-            toast.warning("Can't post empty body!");
-            return;
+          toast.warning("Can't post empty body!");
+          return;
         }
-       
+        
         if (!clerkUser.user?.id) {
-            console.log("User is not defined");
-            return;
-          }
+          console.log("User is not defined");
+          return;
+        }
 
         createNewPost.mutate({
             title: postTitle,
             content: postContent,
-            skillTag:  selectedOption?.value ? selectedOption.value : "",,
+            skillTag:  selectedOption?.value ? selectedOption.value : "",
         })
 
         setPostContent('');
@@ -74,6 +69,7 @@ export default function CreatePost(){
     }
 
     return (
+
         <form onSubmit={handleCreatePost}>
             <div className="w-4/5 mx-auto  flex flex-col">
                 <input onChange={(e:ChangeEvent<HTMLInputElement>)=>setPostTitle(e.target.value)} type="text" name="postTitle" value={postTitle} id="postTitle" placeholder="Title" className="p-2 text-black my-2 border-2 shadow-md outline-none cursor-text"/>
