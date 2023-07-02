@@ -14,7 +14,7 @@ export default function Post(props: PostWithUser){
     }
 
     return (
-        <div className="flex bg-white shadow-lg rounded-lg mx-4 md:mx-auto my-56 max-w-md md:max-w-2xl ">{/*horizantil margin is just for display*/}
+        <div className="flex bg-white shadow-lg rounded-lg mx-4 my-4 max-w-md md:max-w-2xl ">{/*horizantil margin is just for display*/}
         <div className="flex items-start px-4 py-6">
           <Image width="48" height="48" className="w-12 h-12 rounded-full object-cover mr-4 shadow" src={author?.profileImageUrl} alt="avatar" />
           <div className="">
@@ -22,6 +22,9 @@ export default function Post(props: PostWithUser){
               <h2 className="text-lg font-semibold text-gray-900 -mt-1">{author?.fullName} </h2>
               <small className="text-sm text-gray-700">{dayjs(post.createdAt).fromNow()}</small>
             </div>
+            <p className="mt-3 font-semibold text-gray-800 text-md">
+              {post?.title}
+            </p>
             <p className="mt-3 text-gray-700 text-sm">
               {post?.content}
             </p>
@@ -38,7 +41,7 @@ export default function Post(props: PostWithUser){
                 <svg fill="none" viewBox="0 0 24 24" className="w-4 h-4 mr-1" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z" />
                 </svg>
-                {/* <span>{post?.comments}</span> */}
+                <span>View comments</span>
               </div>
               <div className="flex text-gray-700 text-sm mr-4">
                 <svg fill="none" viewBox="0 0 24 24" className="w-4 h-4 mr-1" stroke="currentColor">
@@ -47,6 +50,10 @@ export default function Post(props: PostWithUser){
                 <span>share</span>
               </div>
             </div>
+            <span className="mt-3 text-gray-700 text-sm">
+              Comments
+              {}
+            </span>
           </div>
         </div>
       </div>

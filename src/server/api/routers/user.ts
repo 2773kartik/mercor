@@ -30,5 +30,47 @@ export const userRouter = createTRPCRouter({
     return posts;
     }),
 
+    addKarma: privateProcedure.input(
+        z.object({
+          userId: z.string(),
+          karmaToAdd: z.number(),
+        })
+      ).mutation(async ({ ctx, input }) => {
+        const { userId, karmaToAdd } = input;
+    
+        try {
+          // Fetch the user by userId from your data source
+          const user = await ctx.prisma.user.findUnique({
+            where: {
+              userId,
+            },
+          });
+    
+          if (!user) {
+            throw new TRPCError({
+              code: "UNAUTHORIZED",
+              message: "User not found.",
+            });
+          }
+    
+          // Update the user's karma field
+          const updatedUser = await ctx.prisma.user.update({
+            where: {
+              userId,
+            },
+            data: {
+              karma: user.karma + karmaToAdd,
+            },
+          });
+    
+          return updatedUser;
+        } catch (error) {
+          throw new TRPCError({
+            code: "UNAUTHORIZED",
+            message: "Error updating user's karma.",
+          });
+        }
+      }),
+
 }
 );
