@@ -4,8 +4,6 @@ import { useUser } from "@clerk/nextjs"
 
 import { ChakraBaseProvider, extendBaseTheme } from '@chakra-ui/react'
 
-// import { useUser } from "@clerk/nextjs";
-
 
 import {
   Avatar,
@@ -21,23 +19,6 @@ import chakraTheme from '@chakra-ui/theme'
 
 const { Button } = chakraTheme.components
 
-type CustomElement = { type: 'paragraph'; children: CustomText[] }
-type CustomText = { text: string }
-
-declare module 'slate' {
-  interface CustomTypes {
-    Editor: BaseEditor & ReactEditor
-    Element: CustomElement
-    Text: CustomText
-  }
-}
-
-const initialValue: CustomElement[] = [
-  {
-    type: 'paragraph',
-    children: [{ text: 'A dummy Text that will go here' }],
-  },
-];
 
 const theme = extendBaseTheme({
     components: {
@@ -46,43 +27,7 @@ const theme = extendBaseTheme({
   })
 
 export default function Dashboard(){
-    // const [editor] = useState(() => withReact(createEditor()))
     const myuser = useUser();
-    const [postTitle, setPostTitle] = useState<string>('')
-    const [postContent, setPostContent] = useState<string>('')
-
-    const createNewPost = api.posts.create.useMutation();
-
-    async function handleCreatePost(e:FormEvent){
-        e.preventDefault()
-        console.log("Post created")
-        // check for empty string from user in title or content
-        if(postTitle===null || postTitle==='' || postTitle===undefined){
-            console.log("NOO")
-            return;
-        }
-        if(postContent===null || postContent==='' || postContent===undefined){
-            console.log("WHATTT")
-            return;
-        }
-
-        console.log(postContent)
-        console.log(postTitle)
-        if (!clerkUser.user?.id) {
-          console.log("User is not defined");
-          return;
-        }
-        createNewPost.mutate({
-            title: postTitle,
-            content: postContent,
-            userId: clerkUser.user.id,
-            skillTag: '',
-        })
-
-        
-
-
-    }
 
     const details = api.profile.getData.useQuery();
 
