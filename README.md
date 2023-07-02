@@ -1,6 +1,7 @@
-# SkillMingle - Mercor Startup Gateway Hackathon
+# SkillShow - Mercor Startup Gateway Hackathon
 
 **Note: This project is part of the Mercor Startup Gateway Hackathon (Track 1).**
+**This website is deployed on https://mercor-murex.vercel.app/**
 
 ## Problem Statement
 
@@ -11,11 +12,11 @@
 
 **Tech Stacks** - For this track, we recommend using the T3 Stack, which is standard at Mercor. Additionally, we suggest utilizing UI kits like Chakra UI to minimize the time spent on UI development. You are free to deploy your application to Vercel or any other hosting provider.
 
-## SkillMingle
+## SkillShow
 
-SkillMingle is our submission for the Mercor Startup Gateway Hackathon (Track 1). It is a web application that addresses the problem of creating a community-driven platform where users can engage in discussions, share knowledge, and be recognized for their expertise within specific domains.
+SkillShow is our submission for the Mercor Startup Gateway Hackathon (Track 1). It is a web application that addresses the problem of creating a community-driven platform where users can engage in discussions, share knowledge, and be recognized for their expertise within specific domains.
 
-By implementing a rating system inspired by competitive programming platforms like Kaggle, SkillMingle enables users to build their reputation based on their contributions and skills. It offers a space where individuals and organizations can organize contests to identify and recruit talent, opening up monetization opportunities.
+By implementing a rating system inspired by competitive programming platforms like Kaggle, SkillShow enables users to build their reputation based on their contributions and skills. It offers a space where individuals and organizations can organize contests to identify and recruit talent, opening up monetization opportunities.
 
 ## Features
 
@@ -28,7 +29,7 @@ By implementing a rating system inspired by competitive programming platforms li
 
 ## Tech Stack
 
-SkillMingle is built using the T3 stack, which includes the following technologies:
+SkillShow is built using the T3 stack, which includes the following technologies:
 
 - **T** - TypeScript
 - **T** - Next.js
@@ -40,16 +41,16 @@ We have utilized Chakra UI, a UI kit, to streamline the user interface developme
 
 ## Installation
 
-To run the SkillMingle project locally, please follow the steps below:
+To run the SkillShow project locally, please follow the steps below:
 
 ### Prerequisites
 - Node.js (v12 or higher)
 
 Clone the repository:
-```git clone https://github.com/2773kartik/skillmingle.git```
+```git clone https://github.com/2773kartik/SkillShow.git```
 
 Navigate to the project directory:
-```cd skillmingle```
+```cd SkillShow```
 
 Install the dependencies:
 ```npm i```
@@ -66,9 +67,9 @@ Start the server
 
 ## Usage
 
-Once the SkillMingle application is up and running, follow the steps below to use the platform effectively:
+Once the SkillShow application is up and running, follow the steps below to use the platform effectively:
 
-1. Open your web browser and navigate to the SkillMingle application.
+1. Open your web browser and navigate to the SkillShow application.
 2. Sign up for a new account or log in if you already have one.
 3. Explore different communities based on your interests, such as guitar, gaming, coding, and more.
 4. Engage in discussions, ask questions, and share your knowledge with other users.
@@ -77,13 +78,13 @@ Once the SkillMingle application is up and running, follow the steps below to us
 7. Purchase tokens from the store and donate them to other users as a form of recognition.
 8. Stay active and contribute positively to the community to improve your overall rating and reputation.
 9. Keep an eye out for talent identification and recruitment contests organized by organizations, which can lead to monetization opportunities.
-10. Enjoy the SkillMingle experience and continue to grow your skills and connections within the community.
+10. Enjoy the SkillShow experience and continue to grow your skills and connections within the community.
 
-Feel free to explore all the features and functionalities of SkillMingle to enhance your networking, knowledge-sharing, and skill-building experiences.
+Feel free to explore all the features and functionalities of SkillShow to enhance your networking, knowledge-sharing, and skill-building experiences.
 ## Contributing
 
-We welcome contributions to the SkillMingle project! If you have any ideas, suggestions, bug reports, or improvements.
+We welcome contributions to the SkillShow project! If you have any ideas, suggestions, bug reports, or improvements.
 
 ## License
 
-The SkillMingle project is licensed under the [MIT License](LICENSE). Feel free to use, modify, and distribute the code as per the terms of this license.
+The SkillShow project is licensed under the [MIT License](LICENSE). Feel free to use, modify, and distribute the code as per the terms of this license.
