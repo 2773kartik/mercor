@@ -46,7 +46,7 @@ export default function Home() {
   //         // </div>
   //   )
   // }
-  console.log( data )
+  console.log( user.user?.id );
 
   return (
     <>
@@ -60,12 +60,12 @@ export default function Home() {
         user?.isSignedIn ?
         <main className="flex justify-center h-screen">
           <div className="w-full h-full border-x border-slate-400 md:max-w-2xl">
-            <CreatePost clerkUser={user} />
             <div className="flex flex-col">
               {data?.map(({post, author}) => (
                 <Post key={post.id} author={author} post={post}/>
               ))} 
             </div>
+            {user && <CreatePost />}
           </div>
         </main>
         :

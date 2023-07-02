@@ -21,10 +21,10 @@ const PostSee = (props: PostUse) => {
   const {post, author} = props;
   return (
     <div key={post.id} className="border-b border-slate-400 p-4 gap-3 flex">
-      <Image src={author.profilePic} alt="MyProfilePic" width={56} height={56} className="h-14 w-14 rounded-full"/>
+      <Image src={author.profileImageUrl} alt="MyProfilePic" width={56} height={56} className="h-14 w-14 rounded-full"/>
       <div className="flex flex-col">
         <div className="flex text-slate-300">
-          <span>{`@${author.name} `}</span>
+          <span>{`@${author.fullName} `}</span>
           <span className="font-thin">{` - ${dayjs(post.createdAt).fromNow()}`}</span>
         </div>
         <span>{post.content}</span>

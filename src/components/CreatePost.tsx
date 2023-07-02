@@ -3,7 +3,7 @@ import { api } from "~/utils/api"
 import { createEditor } from 'slate'
 // Import the Slate components and React plugin.
 import { Slate, Editable, withReact } from 'slate-react'
-
+import { useUser } from "@clerk/nextjs"
 import { BaseEditor, Descendant } from 'slate'
 import { ReactEditor } from 'slate-react'
 
@@ -25,15 +25,15 @@ const initialValue = [
     },
   ]
 
-export default function CreatePost({clerkUser}){
+export default function CreatePost(){
     const [editor] = useState(() => withReact(createEditor()))
-
+    const clerkUser = useUser();
     const [postTitle, setPostTitle] = useState<string>('')
     const [postContent, setPostContent] = useState<string>('')
 
     const createNewPost = api.posts.create.useMutation();
 
-    function handleCreatePost(e:FormEvent){
+    async function handleCreatePost(e:FormEvent){
         e.preventDefault()
         console.log("Post created")
         // check for empty string from user in title or content
