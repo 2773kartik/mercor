@@ -2,7 +2,8 @@ import { createTRPCRouter } from "~/server/api/trpc";
 import { postsRouter } from "./routers/posts";
 import { userRouter } from "./routers/user";
 import { profileRouter } from "./routers/profile"
-import { skillRouter } from "./routers/skill";
+import { skillRouter } from "./routers/skills";
+
 
 /**
  * This is the primary router for your server.
@@ -12,6 +13,7 @@ import { skillRouter } from "./routers/skill";
 export const appRouter = createTRPCRouter({
   posts: postsRouter,
   users: userRouter,
+  skills: skillRouter,
   profile: profileRouter,
   skills: skillRouter,
 });

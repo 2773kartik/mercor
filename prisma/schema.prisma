@@ -56,4 +56,4 @@ model Skill {
   posts         Post[]
   user          User[]
   @@index([name])
-}
+

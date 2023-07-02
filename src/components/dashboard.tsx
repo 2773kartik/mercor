@@ -32,7 +32,6 @@ export default function Dashboard(){
     const details = api.profile.getData.useQuery();
 
     const totalLikes = api.profile.getTotalLikes.useQuery();
-    console.log(totalLikes)
 
     return (
         <ChakraBaseProvider theme={theme}>
