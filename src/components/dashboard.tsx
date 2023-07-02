@@ -46,7 +46,9 @@ export default function Dashboard(){
                 <Box>{myuser.user?.emailAddresses[0]?.emailAddress}</Box>
               </Box>
             </Flex>
+            <Flex alignItems="center" mb={6}>
 
+            </Flex>
             <Flex justifyContent="space-between" mb={8}>
               <Stat>
                 <StatLabel>Total Likes</StatLabel>

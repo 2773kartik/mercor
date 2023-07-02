@@ -22,4 +22,22 @@ export const skillRouter = createTRPCRouter({
               });
         }
     }),
+
+    create: privateProcedure.input(
+        z.object({
+            name: z.string(),
+        })
+    )
+    .mutation(async ({ctx, input}) => {
+        const {name} = input;
+        const result = await ctx.prisma.skill.create(
+            {
+                data:{
+                    name:name,
+                    approved:false,
+                }
+            }
+        );
+        return result;
+    }),
 })
