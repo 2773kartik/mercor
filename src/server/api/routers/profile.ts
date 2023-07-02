@@ -10,7 +10,7 @@ export const profileRouter = createTRPCRouter({
     getData: publicProcedure.query( async ({ ctx }) =>{
         try {const user = await ctx.prisma.user.findUnique({
             where:{
-                userId: ctx?.userId
+                userId: ctx?.userId ? ctx?.userId : undefined
             }
             });
         return user;}
@@ -26,7 +26,7 @@ export const profileRouter = createTRPCRouter({
 
         const userposts = await ctx.prisma.post.findMany({
             where:{
-                userId: ctx?.userId
+                userId: ctx?.userId ? ctx?.userId : undefined
             }
             });
         
