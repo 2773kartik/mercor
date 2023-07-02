@@ -11,6 +11,7 @@ type PostWithUser = RouterOutputs["posts"]["getAll"][number]
 export default function Post(props: PostWithUser){
     const { author, post } = props;
     const router = useRouter();
+    const skills = api.skill.getApprovedSkills.useQuery();
 
     function handleLike(){
 
@@ -27,7 +28,8 @@ export default function Post(props: PostWithUser){
             <Image width="48" height="48" className="w-12 h-12 rounded-full object-cover mr-4 shadow" src={author?.profileImageUrl} alt="avatar" />
             <div className="">
               <div className="flex items-center justify-between">
-                <h2 className="text-xsm text-gray-900">{author?.fullName} </h2>
+                <h2 className="text-xsm text-gray-900">{author?.fullName}</h2>
+                <h2 className="text-xsm font-semibold text-gray-900">{skills.data?.find((skill) => skill.id === post.skillTagId)?.name}</h2>
                 <h2 className="text-xsm text-gray-700">  {dayjs(post.createdAt).fromNow()}</h2>
 
               </div>
