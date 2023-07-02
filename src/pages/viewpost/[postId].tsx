@@ -32,11 +32,38 @@ export default function ViewPost(){
         setState(currState + 1);
       };
 
+    const renderComments = (postId: any) => {
+        const comments = api.posts.getComments.useQuery({ postId: postId as string });
+        console.log(comments.data?.[0].comment);
+
+        if (comments.data) {
+            return (
+                <div className="flex cursor-pointer bg-white shadow-lg rounded-lg mx-4 md:mx-auto w-full my-2 border-2 border-black max-w-md md:max-w-2xl ">{/*horizantil margin is just for display*/}
+            <div className="flex items-start px-4 py-6">
+            <Image width="48" height="48" className="w-12 h-12 rounded-full object-cover mr-4 shadow" src={comments.data?.[0].profileImageUrl} alt="avatar" />
+            <div className="">
+                <div className="flex items-center justify-between">
+                <h2 className="text-lg font-semibold text-gray-900 -mt-1">{comments.data?.[0].author} </h2>
+                <small className="text-sm text-gray-700"> {dayjs(comments.data?.[0].createdAt).fromNow()}</small>
+                </div>
+                {/* dangerouslySetInnerHTML parses the HTML in the string we receive from stored post in db */}
+                <p dangerouslySetInnerHTML={{ __html: comments.data?.[0].comment }} className="mt-3 text-gray-700 text-sm">
+                </p>
+            </div>
+            </div>
+        </div>
+        )
+    }
+};
+
+
+
 
     const [currState, setState] = useState(post?.likeCount);
 
 
     return (
+        <div>
         <div className="flex cursor-pointer bg-white shadow-lg rounded-lg mx-4 md:mx-auto w-full my-2 border-2 border-black max-w-md md:max-w-2xl ">{/*horizantil margin is just for display*/}
             <div className="flex items-start px-4 py-6">
             <Image width="48" height="48" className="w-12 h-12 rounded-full object-cover mr-4 shadow" src={author?.profileImageUrl} alt="avatar" />
@@ -61,7 +88,7 @@ export default function ViewPost(){
                     <svg fill="none" viewBox="0 0 24 24" className="w-4 h-4 mr-1" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z" />
                     </svg>
-                    {/* <span>{post?.comments}</span> */}
+                    
                 </div>
                 <div className="flex text-gray-700 text-sm mr-4">
                     <svg fill="none" viewBox="0 0 24 24" className="w-4 h-4 mr-1" stroke="currentColor">
@@ -72,6 +99,9 @@ export default function ViewPost(){
                 </div>
             </div>
             </div>
+            
+        </div>
+        <div>{renderComments(postId)}</div>
         </div>
     )
 }
