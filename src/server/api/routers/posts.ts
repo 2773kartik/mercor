@@ -59,7 +59,11 @@ export const postsRouter = createTRPCRouter({
           },
           content:content, 
           id: ctx.userId, // current session id as the user id
-          skillTag: skillTag,
+          skillTag: {
+            connect: {
+              id:skillTag
+            }
+          },
         }});
         
         return result;

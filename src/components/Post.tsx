@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import { RouterOutputs } from "~/utils/api"
+import { RouterOutputs, api } from "~/utils/api"
 import relativeTime from "dayjs/plugin/relativeTime";
 import Image from "next/image";
 dayjs.extend(relativeTime)
@@ -20,6 +20,7 @@ export default function Post(props: PostWithUser){
           <div className="">
             <div className="flex items-center justify-between">
               <h2 className="text-lg font-semibold text-gray-900 -mt-1">{author?.fullName} </h2>
+              <h2 className="text-lg font-semibold text-gray-900 -mt-1">  SkillName   </h2>
               <small className="text-sm text-gray-700">{dayjs(post.createdAt).fromNow()}</small>
             </div>
             <p className="mt-3 font-semibold text-gray-800 text-md">

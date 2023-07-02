@@ -8,19 +8,25 @@ import { createTRPCRouter,privateProcedure, publicProcedure } from "~/server/api
 export const profileRouter = createTRPCRouter({
 
     getData: publicProcedure.query( async ({ ctx }) =>{
-        const user = await ctx.prisma.user.findUnique({
+        try {const user = await ctx.prisma.user.findUnique({
             where:{
-                userId: ctx.userId
+                userId: ctx.userId ? ctx.userId : undefined
             }
             });
-        return user;
+        return user;}
+        catch (error) {
+            throw new TRPCError({
+              code: "NOT_FOUND",
+              message: "Error getting data",
+            });
+          }
     }),
 
     getTotalLikes: publicProcedure.query( async ({ ctx }) =>{
 
         const userposts = await ctx.prisma.post.findMany({
             where:{
-                userId: ctx.userId
+                userId: ctx.userId ? ctx.userId : undefined
             }
             });
         
