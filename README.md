@@ -1,6 +1,6 @@
 # SkillShow - Mercor Startup Gateway Hackathon
 
-**Note: This project is part of the Mercor Startup Gateway Hackathon (Track 1).**
+**Note: This project is part of the Mercor Startup Gateway Hackathon (Track 1).**<br>
 **This website is deployed on https://mercor-murex.vercel.app/**
 
 ## Problem Statement
