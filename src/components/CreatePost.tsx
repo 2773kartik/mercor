@@ -44,7 +44,7 @@ export default function CreatePost(){
             toast.warning("Give a title first!");
             return;
         }
-        if(selectedOption==='' || selectedOption===null || selectedOption===undefined) {
+        if(selectedOption===null || selectedOption===undefined) {
             toast.warning("Select a tag please!");
             return;
         }

@@ -47,6 +47,7 @@ export default function Dashboard(){
 
     // details of the user include karma, rating, skills
     const details = api.profile.getData.useQuery();
+    console.log(details.data) 
 
     const totalLikes = api.profile.getTotalLikes.useQuery();
 
