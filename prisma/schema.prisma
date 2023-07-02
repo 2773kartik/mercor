@@ -47,6 +47,7 @@ model Post {
   comments      Comment[]
   @@index([userId])
   @@index([skillTagId])
+  @@unique([createdAt, id])
 }
 
 model Skill {

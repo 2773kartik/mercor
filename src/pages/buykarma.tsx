@@ -88,9 +88,9 @@ export default function BuyKarma() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar />
-      <main className="flex justify-center h-screen">
-        <div className="w-full h-full border-x border-slate-400 md:max-w-2xl bg-gray-500 rounded-md bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-40 border border-gray-100">
-          <div className="flex flex-col">
+      <main className="flex justify-center h-full">
+        <div className="w-full flex flex-col lg:flex lg:flex-row h-full bg-gray-300 rounded-md">
+          <div className="lg:w-1/2 w-full flex flex-col">
             {!!user.isSignedIn &&
               tierList.map((tier, index) => {
                 const cartItem = cart.find(item => item.tier === tier);
@@ -128,23 +128,26 @@ export default function BuyKarma() {
                 );
               })}
           </div>
-          {!!cart.length && (
-            <div className="fixed bottom-0 left-0 p-4 bg-transparent border-t border-gray-300 w-full">
-              <p className="text-xl font-bold">Cart</p>
-              {cart.map((item, index) => (
-                <div className="flex justify-between items-center py-1" key={index}>
-                  <p>{item.tier.name}</p>
-                  <p className="font-bold">Quantity: {item.quantity}</p>
-                </div>
-              ))}
-              <button
-                className="mt-2 px-4 py-2 bg-green-500 hover:bg-green-700 text-white font-bold"
-                onClick={handleBuyCart}
-              >
-                Buy Cart
-              </button>
-            </div>
-          )}
+
+          <div className='lg:w-1/2 w-full flex justify-center items-center m-2'>
+            {!!cart.length && (
+              <div className="left-0 p-4 bg-transparent border-t border-gray-300 w-full">
+                <p className="text-3xl text-black font-bold">Cart</p>
+                {cart.map((item, index) => (
+                  <div className="flex text-black justify-start items-center py-1" key={index}>
+                    <p className='mr-4'>{item.tier.name}</p>
+                    <p className="font-bold">Quantity: {item.quantity}</p>
+                  </div>
+                ))}
+                <button
+                  className="mt-2 px-4 py-2 bg-green-500 hover:bg-green-700 text-white font-bold"
+                  onClick={handleBuyCart}
+                  >
+                  Buy Cart
+                </button>
+              </div>
+            )}
+          </div>
         </div>
       </main>
       <Footer />

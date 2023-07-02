@@ -1,13 +1,25 @@
 import { RouterOutputs, api } from "~/utils/api";
 import { auth, useUser } from "@clerk/nextjs";
+import { useInfiniteQuery } from "@tanstack/react-query";
 import Post from "./Post";
 import Link from "next/link";
 import CreatePost from "./CreatePost";
 import Image from "next/image";
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import { set } from "zod";
+import { InfinitePostsScroll } from "./InfinitePostsScroll";
 
 export default function Landing() {
-    const {data, isLoading} = api.posts.getAll.useQuery();
     const user = useUser();
+    
+    const {data, isLoading, isError, hasNextPage, fetchNextPage} = api.posts.getAll.useInfiniteQuery({},
+        {
+          getNextPageParam: (lastPage) => { lastPage.nextCursor }
+        }
+    );
+        console.log(typeof data?.pages)
+
 
     return (
 
@@ -28,11 +40,7 @@ export default function Landing() {
           }
 
           {!user.isSignedIn && <div className="border-b border-slate-400 p-8">Please Sign In to Continue!!</div>}
-          <div className="flex flex-col justify-center items-center">
-              {data?.map(({post, author}) => (
-                <Post key={post.id} author={author} post={post}/>
-              ))} 
-            </div>
+          <InfinitePostsScroll data={data} isError={isError} isLoading={isLoading} hasMore={hasNextPage} fetchNewPosts = {fetchNextPage} />
         </div>
     );
 }

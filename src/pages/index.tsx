@@ -39,10 +39,6 @@ export default function Home() {
         user?.isSignedIn ?
         <main className="flex justify-center h-full">
           <Landing/>
-          {/* <div className="w-full h-screen border-x md:max-w-2xl bg-white rounded-md bg-clip-padding border border-gray-100">
-            <div className="flex flex-col">
-            </div>
-          </div> */}
         </main>
         :
         null
