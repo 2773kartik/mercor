@@ -40,16 +40,15 @@ export default function Home() {
       <Navbar />
       {
         user?.isSignedIn ?
-        <main className="flex justify-center h-screen">
-          <div className="w-full h-full border-x border-slate-400 md:max-w-2xl bg-gray-500 rounded-md bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-40 border border-gray-100">
+        <main className="flex justify-center h-full">
+          <Landing/>
+          {/* <div className="w-full h-screen border-x md:max-w-2xl bg-white rounded-md bg-clip-padding border border-gray-100">
             <div className="flex flex-col">
-              <Landing/>
             </div>
-          </div>
+          </div> */}
         </main>
         :
         null
-
       }
         <Footer/>
     </>

@@ -13,6 +13,7 @@ const filterUserForClient = (user:any) =>{
 
 export const postsRouter = createTRPCRouter({
   getAll: publicProcedure.query( async ({ ctx }) =>{
+
     const posts = await ctx.prisma.post.findMany({
       take:100,
     });
@@ -21,6 +22,7 @@ export const postsRouter = createTRPCRouter({
       userId: posts.map( (post) => post.userId),
       limit:100
     })).map(filterUserForClient);
+
 
     return posts.map( (post) => {
       const Author =  users.find( (user) => user.userId === post.userId);  // find using the userId from the post and the user list
@@ -42,32 +44,88 @@ export const postsRouter = createTRPCRouter({
   create: privateProcedure.input(
     z.object({title: z.string(),
       content: z.string(),
-      userId: z.string(),
       skillTag: z.string()
       }
     ))
     .mutation( async ({ ctx, input }) =>{
-      const {title, content, userId, skillTag} = input; // fetch data from client
-      const result = await ctx.prisma.post.create( // save the data in db
+      const {title, content, skillTag} = input; // fetch data from client
+      
+      try{
+
+        // Find the skill by name, name is unique for every skill
+        const skill = await ctx.prisma.skill.findUnique({
+          where: {
+            name: skillTag,
+          },
+        });
+
+        if (!skill) { // if skill not found throw error
+          throw new Error(`Skill with name '${skillTag}' not found.`);
+        }
+
+        // save the data in db
+        const result = await ctx.prisma.post.create( // save the data in db
         {data:{
           title:title,
           user:{
-            // find the user by userId
-              connect: {
-                userId: ctx?.userId
-              } 
+            // find the user by userId, connecting this post to it's user
+            connect: {
+              userId: ctx?.userId
+            } 
           },
           content:content, 
-          id: ctx.userId, // current session id as the user id
-          skillTag: {
+          skillTag: { // connect the skill to the post
             connect: {
-              id:skillTag
+              id: skill.id
             }
           },
         }});
         
         return result;
+      }catch(err){ // case of error return empty array
+        console.log(err);
+        return [];
+      }
     }),
+
+    getPostById: privateProcedure.input(
+      z.object({
+        postId: z.string(),
+      })
+    )
+    .query( async ({ ctx, input }) =>{
+      const {postId} = input; // fetch data from client
+      try{
+        const post = await ctx.prisma.post.findUnique({
+          where:{
+            id: postId
+          },
+          select:{
+            title:true,
+            content:true,
+            userId:true,
+            skillTag:true,
+            createdAt:true,
+            likeCount:true,
+          }
+        });
+        if(!post){
+          throw new Error(`Post with id '${postId}' not found.`);
+        }
+        const Author = await clerkClient.users.getUser(post.userId);
+        const data = {
+          post,
+          author: filterUserForClient(Author)
+        };
+        console.log("DAATAA IS ", data);
+        return data;
+      }catch(err){
+        console.log(err);
+        return {};
+      }
+    }),
+
+
     }
 
   );
