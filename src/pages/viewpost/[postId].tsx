@@ -34,7 +34,13 @@ export default function ViewPost(){
 
     const renderComments = (postId: any) => {
         const comments = api.posts.getComments.useQuery({ postId: postId as string });
-        console.log(comments.data?.[0].comment);
+        console.log(typeof comments.data)
+
+        if(comments==null || comments==undefined || comments.data==null || comments.data==undefined || comments.data?.length==0) {
+            console.log("can't render comments")
+            return;
+        
+        }
 
         if (comments.data) {
             return (
