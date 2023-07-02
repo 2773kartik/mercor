@@ -18,12 +18,13 @@ declare module 'slate' {
   }
 }
 
-const initialValue = [
+const initialValue: CustomElement[] = [
     {
       type: 'paragraph',
       children: [{ text: 'A dummy Text that will go here' }],
     },
-  ]
+  ];
+  
 
 export default function CreatePost(){
     const [editor] = useState(() => withReact(createEditor()))
@@ -48,6 +49,11 @@ export default function CreatePost(){
 
         console.log(postContent)
         console.log(postTitle)
+       
+        if (!clerkUser.user?.id) {
+            console.log("User is not defined");
+            return;
+          }
 
         createNewPost.mutate({
             title: postTitle,
