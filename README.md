@@ -31,11 +31,11 @@ By implementing a rating system inspired by competitive programming platforms li
 
 SkillShow is built using the T3 stack, which includes the following technologies:
 
-- **T** - TypeScript
-- **T** - Next.js
-- **T** - Prisma
-- **T** - tRPC
-- **T** - Tailwind.css
+- TypeScript
+- Next.js
+- Prisma
+- tRPC
+- Tailwind.css
 
 We have utilized Chakra UI, a UI kit, to streamline the user interface development process. The application can be deployed to Vercel or any other hosting provider of your choice.
 
