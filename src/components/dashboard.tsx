@@ -7,7 +7,7 @@ import '@fontsource/roboto/700.css'
 
 
 import { Center, Grid, AbsoluteCenter, ChakraBaseProvider, extendBaseTheme, GridItem } from '@chakra-ui/react'
-import { toast } from "react-toastify";
+import { toast } from "react-toastify"; 
 
 
 import {
@@ -45,6 +45,7 @@ const theme = extendBaseTheme({
 export default function Dashboard(){
     const myuser = useUser();
 
+    // details of the user include karma, rating, skills
     const details = api.profile.getData.useQuery();
 
     const totalLikes = api.profile.getTotalLikes.useQuery();

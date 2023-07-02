@@ -1,7 +1,7 @@
 export default function AboutContent() {
     return (
         <div className="h-full rounded-sm">
-            <div className="text-4xl  font-semibold font-sans text-center">
+            <div className="text-4xl py-8 font-semibold font-sans text-center">
                 Welcome to SkillShow!
             </div>
             <div className="text-center p-4">
