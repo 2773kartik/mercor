@@ -17,7 +17,10 @@ export default function ViewPost(){
     const findUser = api.posts.getPostById.useQuery({ postId: postId as string });
 
     //  get the post and author data from the query
-    const post = findUser?.data?.post ? findUser?.data?.post : null;
+    // const post = findUser?.data?.post ? findUser?.data?.post : null;
+    const post = (findUser && findUser.data && findUser.data.post) || null;
+
+
     const author = findUser?.data?.author ? findUser?.data?.author : null;
 
     // API to handleLikes
