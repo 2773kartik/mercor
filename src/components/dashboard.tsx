@@ -2,7 +2,11 @@ import { ChangeEvent, FormEvent, useState } from "react"
 import { api } from "~/utils/api"
 import { useUser } from "@clerk/nextjs"
 
-import { ChakraBaseProvider, extendBaseTheme } from '@chakra-ui/react'
+import '@fontsource/roboto/400.css'
+import '@fontsource/roboto/700.css'
+
+
+import { Center, Grid, AbsoluteCenter, ChakraBaseProvider, extendBaseTheme, GridItem } from '@chakra-ui/react'
 import { toast } from "react-toastify";
 
 
@@ -17,12 +21,23 @@ import {
 } from "@chakra-ui/react";
 
 import chakraTheme from '@chakra-ui/theme'
+import { relative } from "path";
 
 const { Button } = chakraTheme.components
 
 
 const theme = extendBaseTheme({
-    components: {
+  colors: {
+    orange : '#F56565',
+  },
+  styles: {
+    global: {
+      body: {        
+        
+      }
+    }
+  },
+  components: {
       Button,
     },
   })
@@ -31,7 +46,6 @@ export default function Dashboard(){
     const myuser = useUser();
 
     const details = api.profile.getData.useQuery();
-    console.log(details.data);
 
     const totalLikes = api.profile.getTotalLikes.useQuery();
 
