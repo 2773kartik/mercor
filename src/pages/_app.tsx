@@ -6,10 +6,12 @@ import { ToastContainer } from 'react-toastify';
 
 const MyApp: AppType = ({ Component, pageProps }) => {
   return (
+        <>
+        <ToastContainer/>
          <ClerkProvider {...pageProps}>
-          <ToastContainer/>
           <Component {...pageProps} />;
          </ClerkProvider>
+         </>
          )
 };
 

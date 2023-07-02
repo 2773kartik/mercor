@@ -1,20 +1,10 @@
 import { ChangeEvent, FormEvent, useState } from "react"
 import { api } from "~/utils/api"
-import { useUser } from "@clerk/nextjs"
+import { useUser } from "@clerk/nextjs;
 import RichTextEditor from "./RichTextEditor";
 import { useRouter } from "next/router";
 import Select from "react-select";
 import OptionTypeBase from 'react-select'
-
-
-const skillOptions = [
-  { value: "GUITAR", label: "Option 1" },
-  { value: "PIANO", label: "Option 2" },
-  { value: "", label: "Option 3" },
-  // Add more options as needed
-];
-
-
 
 export default function CreatePost(){
     const router = useRouter();
@@ -31,7 +21,6 @@ export default function CreatePost(){
 
     // API to create a new post
     const createNewPost = api.posts.create.useMutation();
-
     // Fetching all the skills from the database
     const { data:skills, isLoading } = api.skills.getAll.useQuery();
 
@@ -55,21 +44,33 @@ export default function CreatePost(){
           if(postContent===null || postContent==='' || postContent===undefined){
             return;
           }
-          
-        if (!clerkUser.user?.id) {
-          console.log("User is not defined");
-          return;
-        }
-        
-        createNewPost.mutate({
-          title: postTitle,
-          content: postContent,
-          skillTag: selectedOption?.value ? selectedOption.value : "",
-        });
 
+            toast.warning("Give a title first!");
+            return;
+        }
+        if(postContent===null || postContent==='' || postContent===undefined){
+            toast.warning("Can't post empty body!");
+            return;
+        }
+       
+        if (!clerkUser.user?.id) {
+            console.log("User is not defined");
+            return;
+          }
+
+        createNewPost.mutate({
+            title: postTitle,
+            content: postContent,
+            skillTag:  selectedOption?.value ? selectedOption.value : "",,
+        })
+
+        setPostContent('');
+        setPostTitle('');   
+        
         // Go back to home page
         router.push('/');
         return;
+
     }
 
     return (
@@ -85,8 +86,6 @@ export default function CreatePost(){
                   isSearchable={true}
                   placeholder="Select an option..."
                 />
-
-                
                 <button className="shadow-md bg-orange-400 w-1/2 mx-auto rounded m-2 p-2">Publish</button>
 
             </div>

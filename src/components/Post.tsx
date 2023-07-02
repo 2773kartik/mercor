@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import { RouterOutputs } from "~/utils/api"
+import { RouterOutputs, api } from "~/utils/api"
 import relativeTime from "dayjs/plugin/relativeTime";
 import Image from "next/image";
 import Link from "next/link";
@@ -21,6 +21,7 @@ export default function Post(props: PostWithUser){
     }
 
     return (
+
         <div onClick={ViewPost} className="flex cursor-pointer bg-white shadow-lg rounded-sm mx-4 md:mx-auto w-full my-2 hover:border-2 hover:border-black max-w-md md:max-w-2xl ">{/*horizantil margin is just for display*/}
           <div className="flex items-start px-4 py-6">
             <Image width="48" height="48" className="w-12 h-12 rounded-full object-cover mr-4 shadow" src={author?.profileImageUrl} alt="avatar" />
@@ -28,6 +29,7 @@ export default function Post(props: PostWithUser){
               <div className="flex items-center justify-between">
                 <h2 className="text-xsm text-gray-900">{author?.fullName} </h2>
                 <h2 className="text-xsm text-gray-700">  {dayjs(post.createdAt).fromNow()}</h2>
+
               </div>
               <p className="font-bold text-lg text-gray-700 ">
                 {post?.title}

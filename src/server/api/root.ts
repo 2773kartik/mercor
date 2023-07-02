@@ -4,6 +4,7 @@ import { userRouter } from "./routers/user";
 import { profileRouter } from "./routers/profile"
 import { skillRouter } from "./routers/skills";
 
+
 /**
  * This is the primary router for your server.
  *
@@ -14,6 +15,7 @@ export const appRouter = createTRPCRouter({
   users: userRouter,
   skills: skillRouter,
   profile: profileRouter,
+  skills: skillRouter,
 });
 
 // export type definition of API
