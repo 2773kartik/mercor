@@ -105,6 +105,30 @@ export const postsRouter = createTRPCRouter({
       }
     }),
 
+    getLikes: privateProcedure.input(
+      z.object({
+        postId: z.string(),
+        }
+      ))
+      .mutation( async ({ ctx, input }) =>{
+        const {postId} = input; 
+        try{
+          // Increment the like count of the post in database
+          const post = await ctx.prisma.post.update({
+            where:{
+              id: postId
+            },
+            data:{
+              likeCount:{
+                increment:1
+              }
+            }
+          });
+        }catch(err){
+          console.log(err);
+          return {};
+        }
+      }),
 
     }
 
