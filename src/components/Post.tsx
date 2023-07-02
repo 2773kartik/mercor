@@ -11,10 +11,7 @@ type PostWithUser = RouterOutputs["posts"]["getAll"][number]
 export default function Post(props: PostWithUser){
     const { author, post } = props;
     const router = useRouter();
-
-    function handleLike(){
-
-    }
+    const skills = api.skill.getApprovedSkills.useQuery();
 
     function ViewPost(){
       router.push(`/viewpost/${post.id}`);
@@ -27,7 +24,8 @@ export default function Post(props: PostWithUser){
             <Image width="48" height="48" className="w-12 h-12 rounded-full object-cover mr-4 shadow" src={author?.profileImageUrl} alt="avatar" />
             <div className="">
               <div className="flex items-center justify-between">
-                <h2 className="text-xsm text-gray-900">{author?.fullName} </h2>
+                <h2 className="text-xsm text-gray-900">{author?.fullName}</h2>
+                <h2 className="text-xsm font-semibold text-gray-900">{skills.data?.find((skill) => skill.id === post.skillTagId)?.name}</h2>
                 <h2 className="text-xsm text-gray-700">  {dayjs(post.createdAt).fromNow()}</h2>
 
               </div>
@@ -37,7 +35,7 @@ export default function Post(props: PostWithUser){
               
               <div className="mt-4 flex items-center">
                 <div className="flex  text-gray-700 text-sm mr-3">
-                  <div onClick={handleLike}>
+                  <div>
                       <svg fill="none" viewBox="0 0 24 24" className="w-4 h-4 mr-1" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                       </svg>

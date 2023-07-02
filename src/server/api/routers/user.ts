@@ -23,6 +23,43 @@ export const userRouter = createTRPCRouter({
         return result;
     }),
 
+    addskill: privateProcedure.input(
+      z.object({
+        id: z.string(),
+        skillTag: z.array(z.string()), // Updated to accept an array
+      })
+    )    
+    .mutation(async ({ ctx, input }) => {
+      const { id, skillTag } = input;
+      const user = await ctx.prisma.user.findUnique({
+        where: {
+          id,
+        },
+      });
+    
+      if (!user) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "User not found.",
+        });
+      }
+    
+      const result = await ctx.prisma.user.update({
+        where: {
+          id,
+        },
+        data: {
+          skillTag: {
+            connect: skillTag.map((tag) => ({ id: tag })),
+          },
+        },
+      });
+      
+    
+      return result;
+    }),
+    
+
     getAll: publicProcedure.query( async ({ ctx }) =>{
         const posts = await ctx.prisma.post.findMany({
           take:100,

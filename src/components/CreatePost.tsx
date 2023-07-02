@@ -14,10 +14,10 @@ export default function CreatePost(){
     const [postTitle, setPostTitle] = useState<string>('');
     const [postContent, setPostContent] = useState<string>('');
 
-    const [selectedOption, setSelectedOption] = useState<OptionTypeBase | null>(null);
+    const [selectedOption, setSelectedOption] = useState<string>('');
 
-    function handleSkillChange(skill: OptionTypeBase | null) { 
-      setSelectedOption(skill);
+    function handleSkillChange(e: ChangeEvent<HTMLSelectElement>) {
+        setSelectedOption(e.target.value);   
     }
 
     // API to create a new post
@@ -75,13 +75,17 @@ export default function CreatePost(){
                 <input onChange={(e:ChangeEvent<HTMLInputElement>)=>setPostTitle(e.target.value)} type="text" name="postTitle" value={postTitle} id="postTitle" placeholder="Title" className="p-2 text-black my-2 border-2 shadow-md outline-none cursor-text"/>
                 <RichTextEditor onChange={(content:string)=>setPostContent(content)} />
                 
-                <Select className="my-2 bg-white text-black"
-                  options={options}
-                  value={selectedOption}
-                  onChange={handleSkillChange}
-                  isSearchable={true}
-                  placeholder="Select an option..."
-                />
+                <select
+                    className="p-2 m-2 text-black border-2 shadow-md rounded outline-none cursor-pointer"
+                    value={selectedOption}
+                    onChange={handleSkillChange}
+                    >
+                    {data?.map((skill: { id: string; name: string, approved: boolean }) => (
+                        <option key={skill.id} value={skill.id}>
+                        {skill.name}
+                        </option>
+                    ))}
+                </select>
                 <button className="shadow-md bg-orange-400 w-1/2 mx-auto rounded m-2 p-2">Publish</button>
 
             </div>
