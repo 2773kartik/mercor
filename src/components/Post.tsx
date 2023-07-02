@@ -14,16 +14,16 @@ export default function Post(props: PostWithUser){
     }
 
     return (
-        <div className="flex bg-white shadow-lg rounded-lg mx-4 md:mx-auto my-56 max-w-md md:max-w-2xl ">{/*horizantil margin is just for display*/}
+        <div className="flex cursor-pointer bg-white shadow-lg rounded-lg mx-4 md:mx-auto w-full my-2 border-2 border-black max-w-md md:max-w-2xl ">{/*horizantil margin is just for display*/}
         <div className="flex items-start px-4 py-6">
           <Image width="48" height="48" className="w-12 h-12 rounded-full object-cover mr-4 shadow" src={author?.profileImageUrl} alt="avatar" />
           <div className="">
             <div className="flex items-center justify-between">
               <h2 className="text-lg font-semibold text-gray-900 -mt-1">{author?.fullName} </h2>
-              <small className="text-sm text-gray-700">{dayjs(post.createdAt).fromNow()}</small>
+              <small className="text-sm text-gray-700"> {dayjs(post.createdAt).fromNow()}</small>
             </div>
-            <p className="mt-3 text-gray-700 text-sm">
-              {post?.content}
+            {/* dangerouslySetInnerHTML parses the HTML in the string we receive from stored post */}
+            <p dangerouslySetInnerHTML={{ __html: post?.content }} className="mt-3 text-gray-700 text-sm">
             </p>
             <div className="mt-4 flex items-center">
               <div className="flex  text-gray-700 text-sm mr-3">
@@ -49,7 +49,7 @@ export default function Post(props: PostWithUser){
             </div>
           </div>
         </div>
-      </div>
+        </div>
     )
 }
 
