@@ -22,23 +22,30 @@ export default function CreatePost(){
     const [postTitle, setPostTitle] = useState<string>('')
     const [postContent, setPostContent] = useState<string>('')
 
+    const [selectedOption, setSelectedOption] = useState<OptionTypeBase | null>(null);
+
+    const handleOptionChange = (selectedOption: OptionTypeBase | null) => {
+      setSelectedOption(selectedOption);
+    };
+    
+
     // API to create a new post
     const createNewPost = api.posts.create.useMutation();
 
-
     // Fetching all the skills from the database
-    const { data: skills, isLoading } = api.skills.getAll.useQuery();
+    const { data:skills, isLoading } = api.skills.getAll.useQuery();
 
-    const options = skills?.map((skill) => {
+    // Mapping the skills to the options for the select component
+    let options = (skills)?.map((skill) => {
       if(skill.approved){ // only show approved skills to user
-       return {
+        return {
           value: skill.name,
           label: skill.name,
         } 
       }
     });
-    console.log(options)
 
+    // function to handle the creation of a new post
     async function handleCreatePost(e:FormEvent){
         e.preventDefault()
         // check for empty string from user in title or content
@@ -57,7 +64,7 @@ export default function CreatePost(){
         createNewPost.mutate({
           title: postTitle,
           content: postContent,
-          skillTag: '',
+          skillTag: selectedOption?.value ? selectedOption.value : "",
         });
 
         // Go back to home page
@@ -71,6 +78,14 @@ export default function CreatePost(){
                 <input onChange={(e:ChangeEvent<HTMLInputElement>)=>setPostTitle(e.target.value)} type="text" name="postTitle" value={postTitle} id="postTitle" placeholder="Title" className="p-2 text-black my-2 border-2 shadow-md outline-none cursor-text"/>
                 <RichTextEditor onChange={(content:string)=>setPostContent(content)} />
                 
+                <Select className="my-2 bg-white text-black"
+                  options={options}
+                  value={selectedOption}
+                  onChange={handleOptionChange}
+                  isSearchable={true}
+                  placeholder="Select an option..."
+                />
+
                 
                 <button className="shadow-md bg-orange-400 w-1/2 mx-auto rounded m-2 p-2">Publish</button>
 

@@ -1,8 +1,25 @@
 import Image from "next/image";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+import { useRouter } from "next/router";
+import { api } from "~/utils/api";
+dayjs.extend(relativeTime);
 
 export default function ViewPost(){
 
-    
+    const router = useRouter();
+    const { postId } = router.query;
+
+    // fetch the post and author data from the database using the postId
+    const findUser = api.posts.getPostById.useQuery({ postId: postId as string });
+
+    //  get the post and author data from the query
+    const post = findUser?.data?.post ? findUser?.data?.post : null;
+    const author = findUser?.data?.author ? findUser?.data?.author : null;
+
+    function handleLike(){
+
+    }
 
     return (
         <div className="flex cursor-pointer bg-white shadow-lg rounded-lg mx-4 md:mx-auto w-full my-2 border-2 border-black max-w-md md:max-w-2xl ">{/*horizantil margin is just for display*/}
@@ -11,7 +28,7 @@ export default function ViewPost(){
             <div className="">
                 <div className="flex items-center justify-between">
                 <h2 className="text-lg font-semibold text-gray-900 -mt-1">{author?.fullName} </h2>
-                <small className="text-sm text-gray-700"> {dayjs(post.createdAt).fromNow()}</small>
+                <small className="text-sm text-gray-700"> {dayjs(post?.createdAt).fromNow()}</small>
                 </div>
                 {/* dangerouslySetInnerHTML parses the HTML in the string we receive from stored post in db */}
                 <p dangerouslySetInnerHTML={{ __html: post?.content }} className="mt-3 text-gray-700 text-sm">
