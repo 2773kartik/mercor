@@ -5,6 +5,7 @@ import RichTextEditor from "./RichTextEditor";
 import { useRouter } from "next/router";
 import Select from "react-select";
 import OptionTypeBase from 'react-select'
+import { toast } from "react-toastify";
 
 export default function CreatePost(){
     const router = useRouter();
