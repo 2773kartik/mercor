@@ -13,10 +13,6 @@ export default function Post(props: PostWithUser){
     const router = useRouter();
     const skills = api.skill.getApprovedSkills.useQuery();
 
-    function handleLike(){
-
-    }
-
     function ViewPost(){
       router.push(`/viewpost/${post.id}`);
     }
@@ -39,7 +35,7 @@ export default function Post(props: PostWithUser){
               
               <div className="mt-4 flex items-center">
                 <div className="flex  text-gray-700 text-sm mr-3">
-                  <div onClick={handleLike}>
+                  <div>
                       <svg fill="none" viewBox="0 0 24 24" className="w-4 h-4 mr-1" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                       </svg>
