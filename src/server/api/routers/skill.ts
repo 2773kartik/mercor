@@ -13,13 +13,13 @@ export const skillRouter = createTRPCRouter({
                     approved: true,
                 }
             });
-        return skillList;
+            return skillList;
         }
         catch (error) {
             throw new TRPCError({
                 code: "NOT_FOUND",
                 message: "Error getting Skill",
-              });
+            });
         }
     }),
 

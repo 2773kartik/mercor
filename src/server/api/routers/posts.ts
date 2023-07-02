@@ -97,7 +97,6 @@ export const postsRouter = createTRPCRouter({
           post,
           author: filterUserForClient(Author)
         };
-        console.log("DAATAA IS ", data);
         return data;
       }catch(err){
         console.log(err);
