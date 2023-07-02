@@ -18,6 +18,9 @@ SkillShow is our submission for the Mercor Startup Gateway Hackathon (Track 1). 
 
 By implementing a rating system inspired by competitive programming platforms like Kaggle, SkillShow enables users to build their reputation based on their contributions and skills. It offers a space where individuals and organizations can organize contests to identify and recruit talent, opening up monetization opportunities.
 
+![image](https://github.com/2773kartik/mercor/assets/94680887/f7ada82b-8b97-4aaa-be28-6c7c8118e589)
+
+
 ## Features
 
 - **Community-based Forums:** Users can join various communities based on their interests, such as guitar, gaming, coding, and more.
