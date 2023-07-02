@@ -129,6 +129,82 @@ export const postsRouter = createTRPCRouter({
         }
       }),
 
+    getComments: privateProcedure.input(
+      z.object({
+        postId: z.string(),
+      })
+    )
+    .query( async ({ ctx, input }) =>{
+      const {postId} = input; // fetch data from client
+      try{
+        // Fetch comments from database
+        const comments = await ctx.prisma.comment.findMany({
+          where:{
+            postId: postId
+          },
+          select:{
+            id:true,
+            body:true,
+            userId:true,
+            createdAt:true,
+          }
+        });
+        // get user details of the comment
+        const users = (await clerkClient.users.getUserList({
+          userId: comments.map( (comment) => comment.userId),
+          limit:100
+        })).map(filterUserForClient);
+
+        // return all the comments with user details
+        return comments.map( (comment) => {
+          const Author =  users.find( (user) => user.userId === comment.userId);  // find using the userId from the post and the user list
+          if(!Author){
+            throw new TRPCError({
+              code:"INTERNAL_SERVER_ERROR", 
+              message:"Author not found"
+            });
+          }
+          return {
+            comment: comment.body,
+            author: Author.fullName,
+            profileImageUrl: Author.profileImageUrl,
+            createdAt: comment.createdAt,
+          }
+        }
+        );
+
+
+        
+          
+      }catch(err){
+        console.log(err);
+        return {};
+      }
+    }),
+
+    //fetch comments where postId = postId
+    
+
+    // const users = (await clerkClient.users.getUserList({
+    //   userId: comments.map( (post) => post.userId),
+    //   limit:100
+    // })).map(filterUserForClient);
+
+    // return comments.map( (post) => {
+    //   const Author =  users.find( (user) => user.userId === post.userId);  // find using the userId from the post and the user list
+    //   if(!Author){
+    //     throw new TRPCError({
+    //       code:"INTERNAL_SERVER_ERROR", 
+    //       message:"Author not found"
+    //     });
+    //   }
+    //   return {
+    //     post, 
+    //     author: Author
+    //   }
+    // }
+    // );
+
     }
 
   );
