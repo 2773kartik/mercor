@@ -19,7 +19,6 @@ export default function CreatePost(){
         setSelectedOption(e.target.value);
         
     }
-    console.log(selectedOption);
     // API to create a new post
     const createNewPost = api.posts.create.useMutation();
     // Fetching all the skills from the database

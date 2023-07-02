@@ -5,9 +5,6 @@ import { useUser } from "@clerk/nextjs";
 import Navbar from "~/components/navbar";
 import Landing from "~/components/landing";
 import Footer from "~/components/footer";
-import Post from "../components/Post";
-import CreatePost from "../components/CreatePost";
-import { useRouter } from "next/router";
 import { useEffect, useRef } from "react";
 
 export default function Home() {
